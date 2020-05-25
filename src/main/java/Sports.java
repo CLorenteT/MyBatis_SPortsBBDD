@@ -9,6 +9,10 @@ public class Sports {
 		this.name = name;
 	}
 
+	public Sports(String name) {
+		this.name = name;
+	}
+
 	public Sports(int id) {
 		super();
 		this.id = id;

@@ -1,48 +1,126 @@
 import org.apache.ibatis.annotations.*;
 
 public interface Mapper {
-	// PEOPLE
-	@Select({ "SELECT a.DNI, a.Dorsals, a.Name_, Surname1, b.Surname2, Age, Sex, ID_Nationality, Competitions_Wins, Salary, ID_Type FROM Players a INNER JOIN Surname2_Player b ON a.DNI = b.DNI WHERE a.DNI=#{DNI}" })
-	People getPerson(String DNI);
-	
-	@Select({ "SELECT * FROM Nationalities WHERE ID_Nationality=#{id}" })
-	Nationalities getNationality(int id);
+	// SELECT
+		// PEOPLE
+			// PLAYER
+			@Select({
+					"call selPlayers(#{DNI});"
+			})
+			Players getPerson(String DNI);
 
-	@Insert({
-			"call InsertPlayers(#{DNI},#{dorsals},#{name},#{surname1},#{surname2},#{age},#{sex},#{nationality},#{competitions_wins},#{salary},#{type},#{debut},#{team},#{sport},#{retired});" })
-	void insertPerson(People data);
+			// REFEREE
+			@Select({
+					"call selReferees(#{DNI});"
+			})
+			Referees getReferee(String DNI);
 
-	@Update({ "UPDATE Players SET Name_=#{name} WHERE DNI=#{DNI}" })
-	void updatePerson(People data);
+			// COACH
+			@Select({
+					"call selCoaches(#{DNI});"
+			})
+			Coaches getCoach(String DNI);
 
-	@Delete({ "DELETE FROM Players WHERE DNI=#{DNI}" })
-	void deletePerson(People data);
+		// TEAMS
+		@Select({
+				"SELECT * FROM Teams WHERE ID_Team=#{id};"
+		})
+		Teams getTeam(int id);
 
-	
-	// TEAMS
-	@Select({ "SELECT * FROM Teams WHERE ID_Team=#{id}" })
-	Teams getTeam(int id);
+		// SPORTS
+		@Select({
+				"SELECT * FROM Sports WHERE ID_Sport=#{id};"
+		})
+		Sports getSport(int id);
 
-	@Insert({ "INSERT INTO Teams VALUES (#{id},#{name},#{nationality},#{gender});" })
-	void insertTeam(Teams data);
+		// NATIONALITIY
+		@Select({
+				"SELECT * FROM Nationalities WHERE ID_Nationality=#{id};"
+		})
+		Nationalities getNationality(int id);
 
-	@Update({ "UPDATE Teams SET Name_=#{name} WHERE ID_Team=#{id}" })
-	void updateTeam(Teams data);
+	// INSERT
+		// PEOPLE
+			// PLAYER
+			@Insert({
+					"call InsertPlayers(#{DNI},#{dorsal},#{name},#{surname1},#{surname2},#{age},#{sex},#{nationality},#{competitions_wins},#{salary},#{type},#{debut},#{team},#{sport},#{retired});"
+			})
+			void insertPerson(Players data);
 
-	@Delete({ "DELETE FROM Teams WHERE ID_Team=#{id}" })
-	void deleteTeam(Teams data);
+			// COACH
+			@Insert({
+					"call InsertCoach(#{DNI}, #{name}, #{surname1}, #{surname2}, #{sex}, #{nat}, #{salary}, #{team}, #{type}, #{sport});"
+			})
+			void insertCoach(Coaches data);
 
-	
-	// SPORTS
-	@Select({ "SELECT * FROM Sports WHERE ID_Sport=#{id}" })
-	Sports getSport(int id);
+			// REFEREE
+			@Insert({
+					"call InsertReferee(#{DNI}, #{name}, #{surname1}, #{surname2}, #{sport}, #{comp}, #{age}, #{sex}, #{nat}, #{ref_type}, #{salary}, #{type});"
+			})
+			void insertReferee(Referees data);
 
-	@Insert({ "INSERT INTO Sports VALUES (#{id},#{name});" })
-	void insertSport(Sports data);
 
-	@Update({ "UPDATE Sports SET Name_=#{name} WHERE ID_Sport=#{id}" })
-	void updateSport(Sports data);
+		// TEAMS
+		@Insert({
+				"call InsertTeam(#{name},#{nationality},#{gender});"
+		})
+		void insertTeam(Teams data);
 
-	@Delete({ "DELETE FROM Sports WHERE ID_Sport=#{id}" })
-	void deleteSport(Sports data);
+		// SPORTS
+		@Insert({
+				"INSERT INTO Sports(Name_) VALUES (#{name});"
+		})
+		void insertSport(Sports data);
+
+	// UPDATE
+		// PEOPLE
+			// PLAYER
+			@Update({
+					"call upPerson(#{DNI},#{dorsal},#{name},#{surname1},#{surname2},#{age},#{sex},#{nationality},#{competitions_wins},#{salary},#{debut},#{retired},#{team},#{sport});"
+			})
+			void updatePlayer(Players data);
+
+			// COACH
+			@Update({
+					"call upCoach(#{DNI}, #{name}, #{surname1}, #{surname2}, #{sex}, #{nat}, #{salary});"
+			})
+			void updateCoach(Coaches data);
+
+			// REFEREE
+			@Update({
+					"call upReferee(#{DNI}, #{name}, #{surname1}, #{surname2}, #{sport}, #{comp}, #{age}, #{sex}, #{nat}, #{ref_type}, #{salary});"
+			})
+			void updateReferee(Referees data);
+
+		// TEAMS
+		@Update({
+				"call upTeam(#{id},#{name},#{nationality},#{gender});"
+		})
+		void updateTeam(Teams data);
+
+		// SPORTS
+		@Update({
+				"call upSport(#{id}, #{name});"
+		})
+		void updateSport(Sports data);
+
+	// DELETE
+		// PEOPLE
+		@Delete({
+				"call delPerson(#{DNI},#{name});"
+		})
+		void deletePerson(People data);
+
+		// TEAMS
+		@Delete({
+				"call delTeam(#{id});"
+		})
+		void deleteTeam(int id);
+
+		// SPORTS
+		@Delete({
+				"call delSport(#{id});"
+		})
+		void deleteSport(int id);
+
 }

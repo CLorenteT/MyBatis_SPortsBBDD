@@ -12,7 +12,13 @@ public class Teams {
 		this.nationality = nationality;
 		this.gender = gender;	
 	}
-	
+
+	public Teams(String name, int nationality, String gender) {
+		this.name = name;
+		this.nationality = nationality;
+		this.gender = gender;
+	}
+
 	public Teams(int id, String name) {
 		super();
 		this.id = id;
