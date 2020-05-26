@@ -149,10 +149,10 @@ public class MyBatis {
                         int salary = sc.nextInt();
                         System.out.print("ID_Type: ");
                         int type = sc.nextInt();
-                        System.out.println("Debut date (YYYY/MM/DD): ");
+                        System.out.println("Debut date (YYYY-MM-DD): ");
                         String debutDate = sc.next();
                         Date debut = Date.valueOf(debutDate);
-                        System.out.println("Retired date (YYYY/MM/DD): ");
+                        System.out.println("Retired date (YYYY-MM-DD): ");
                         String retiredDate = sc.next();
                         Date retired = Date.valueOf(retiredDate);
                         System.out.println("Sport ID: ");
@@ -283,10 +283,10 @@ public class MyBatis {
                             int comp = sc.nextInt();
                             System.out.print("Salary: ");
                             int salary = sc.nextInt();
-                            System.out.println("Debut date (YYYY/MM/DD): ");
+                            System.out.println("Debut date (YYYY-MM-DD): ");
                             String debutDate = sc.next();
                             Date debut = Date.valueOf(debutDate);
-                            System.out.println("Retired date (YYYY/MM/DD): ");
+                            System.out.println("Retired date (YYYY-MM-DD): ");
                             String retiredDate = sc.next();
                             Date retired = Date.valueOf(retiredDate);
                             System.out.println("Sport ID: ");
